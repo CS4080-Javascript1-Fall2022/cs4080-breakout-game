@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 let x = canvas.width / 2;                           //ball x pos
 let y = canvas.height - 30;                         //ball y pos
 
-let speed = 4;                                      //ball speed
+let speed = 5;                                      //ball speed
 let dx = speed;
 let dy = -speed;
 
@@ -36,6 +36,7 @@ for (let c = 0; c < brickColumnCount; c++) {
 }
 
 let score = 0;                                      //game score
+let lives = 3;                                      //lives
 
 //draws the ball onto the canvas
 function drawBall() {
@@ -81,6 +82,13 @@ function drawScore() {
     ctx.fillText(`Score: ${score}`, 8, 20);
 }
 
+//draws lives onto the canvas
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
+}
+
 //Main function to draw everything into the canvas
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -89,6 +97,7 @@ function draw() {
     drawBricks();
     collisionDetection();
     drawScore();
+    drawLives();
 
     //Bounce ball off the top and bottom
     if (y + dy > canvas.height || y + dy < 0) {
@@ -105,9 +114,17 @@ function draw() {
         if (x > paddleX - paddleGrace && x < paddleX + paddleGrace + paddleWidth) {
           dy = -dy;
         } else {
-          alert("GAME OVER");
-          document.location.reload();
-          clearInterval(interval);
+            lives--;
+            if (!lives) {
+                alert("GAME OVER");
+                document.location.reload();
+            } else {
+                x = canvas.width / 2;
+                y = canvas.height - 30;
+                dx = speed;
+                dy = -speed;
+                paddleX = (canvas.width - paddleWidth) / 2;
+            }
         }
     }
 
@@ -121,6 +138,9 @@ function draw() {
       } else if (leftPressed) {
         paddleX = Math.max(paddleX - paddleSpeed, 0);
       }
+
+    //calls draw every frame (frame rate depends on browser)
+    requestAnimationFrame(draw);
   }
 
   document.addEventListener("keydown", keyDownHandler, false);
@@ -171,7 +191,6 @@ function draw() {
             if (score === brickRowCount * brickColumnCount) {
                 alert("YOU WIN, CONGRATULATIONS!");
                 document.location.reload();
-                clearInterval(interval); // Needed for Chrome to end game
             }
           }
         }
@@ -179,5 +198,4 @@ function draw() {
     }
   }
 
-  //canvas updates every (10) milliseconds
-  const interval = setInterval(draw, 10);
+  draw();
