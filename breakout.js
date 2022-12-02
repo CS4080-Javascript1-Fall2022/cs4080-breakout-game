@@ -125,6 +125,7 @@ function draw() {
 
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
+  document.addEventListener("mousemove", mouseMoveHandler, false);
 
   //check if keyboard button is pressed
   function keyDownHandler(e) {
@@ -141,6 +142,14 @@ function draw() {
       rightPressed = false;
     } else if (e.key === "Left" || e.key === "ArrowLeft") {
       leftPressed = false;
+    }
+  }
+
+  function mouseMoveHandler(e) {
+    var rect = canvas.getBoundingClientRect();
+    const relativeX = e.clientX - rect.left;
+    if (relativeX > 0 && relativeX < canvas.width) {
+      paddleX = relativeX - paddleWidth / 2;
     }
   }
 
