@@ -35,6 +35,8 @@ for (let c = 0; c < brickColumnCount; c++) {
   }
 }
 
+let score = 0;                                      //game score
+
 //draws the ball onto the canvas
 function drawBall() {
     ctx.beginPath();
@@ -72,6 +74,13 @@ function drawBricks() {
     }
 }
 
+//draws the score onto the canvas
+function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText(`Score: ${score}`, 8, 20);
+}
+
 //Main function to draw everything into the canvas
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -79,6 +88,7 @@ function draw() {
     drawPaddle();
     drawBricks();
     collisionDetection();
+    drawScore();
 
     //Bounce ball off the top and bottom
     if (y + dy > canvas.height || y + dy < 0) {
@@ -148,6 +158,12 @@ function draw() {
           ) {
             dy = -dy;
             b.status = 0;
+            score++;
+            if (score === brickRowCount * brickColumnCount) {
+                alert("YOU WIN, CONGRATULATIONS!");
+                document.location.reload();
+                clearInterval(interval); // Needed for Chrome to end game
+            }
           }
         }
       }
