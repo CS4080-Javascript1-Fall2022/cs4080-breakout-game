@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 let x = canvas.width / 2;                           //ball x pos
 let y = canvas.height - 30;                         //ball y pos
 
-let speed = 2;                                      //ball speed
+let speed = 6;                                      //ball speed
 let dx = speed;
 let dy = -speed;
 
@@ -46,12 +46,20 @@ function draw() {
         dy = -dy;
     }
     
-    //Bounce ball off the left and right
+    //Bounce ball off the left and right (walls)
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
     }
-    if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
-    dy = -dy;
+    if (y + dy < ballRadius) {
+        dy = -dy;
+    } else if (y + dy > canvas.height - ballRadius) {
+        if (x > paddleX && x < paddleX + paddleWidth) {
+          dy = -dy;
+        } else {
+          alert("GAME OVER");
+          document.location.reload();
+          clearInterval(interval);
+        }
     }
 
     //Change ball position every frame
@@ -88,4 +96,4 @@ function draw() {
   }
 
   //canvas updates every (10) milliseconds
-  setInterval(draw, 10);
+  const interval = setInterval(draw, 10);
