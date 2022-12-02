@@ -8,7 +8,7 @@ let speed = 5;                                      //ball speed
 let dx = speed;
 let dy = -speed;
 
-let paddleSpeed = 4;                                //paddle speed
+let paddleSpeed = 15;                               //paddle speed
 
 const ballRadius = 10;                              //ball radius
 
@@ -74,7 +74,7 @@ function drawBricks() {
           bricks[c][r].y = brickY;
           ctx.beginPath();
           ctx.rect(brickX, brickY, brickWidth, brickHeight);
-          ctx.fillStyle = "#0095DD";
+          ctx.fillStyle = "#B44C43";
           ctx.fill();
           ctx.closePath();
         }
@@ -104,7 +104,7 @@ function draw() {
     drawBricks();
     drawScore();
     drawLives();
-    //drawAmogus();
+    drawAmogus();
     collisionDetection();
 
     //Bounce ball off the left and right (walls)
@@ -115,7 +115,10 @@ function draw() {
         dy = -dy;
     } else if (y + dy > canvas.height - ballRadius) {
         if (x > paddleX - paddleGrace && x < paddleX + paddleGrace + paddleWidth) {
-          dy = -dy;
+            dx = speed * (x - (paddleX + paddleWidth/2))/(paddleWidth/3);
+            console.log(x - (paddleX + paddleWidth/2));
+            console.log(dx);
+            dy = -dy;
         } else {
             lives--;
             if (!lives) {
