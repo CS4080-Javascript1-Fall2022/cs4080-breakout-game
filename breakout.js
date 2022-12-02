@@ -38,6 +38,9 @@ for (let c = 0; c < brickColumnCount; c++) {
 let score = 0;                                      //game score
 let lives = 3;                                      //lives
 
+let amogus = new Image();
+amogus.src = "images/amogus.png";
+
 //draws the ball onto the canvas
 function drawBall() {
     ctx.beginPath();
@@ -45,6 +48,10 @@ function drawBall() {
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+}
+
+function drawAmogus(){
+    ctx.drawImage(amogus, x - amogus.width/2, y - amogus.height/2);
 }
 
 //draws the paddle onto the canvas
@@ -95,15 +102,11 @@ function draw() {
     drawBall();
     drawPaddle();
     drawBricks();
-    collisionDetection();
     drawScore();
     drawLives();
+    //drawAmogus();
+    collisionDetection();
 
-    //Bounce ball off the top and bottom
-    if (y + dy > canvas.height || y + dy < 0) {
-        dy = -dy;
-    }
-    
     //Bounce ball off the left and right (walls)
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
