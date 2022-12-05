@@ -21,9 +21,9 @@ let rightPressed = leftPressed = false;             //Controls user input
 //Brick information
 const brickRowCount = 3;
 const brickColumnCount = 10;
-const brickWidth = 80;
+const brickWidth = 75;
 const brickHeight = 20;
-const brickPadding = 10;
+const brickPadding = 17;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 
