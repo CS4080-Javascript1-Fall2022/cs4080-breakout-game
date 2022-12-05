@@ -28,10 +28,31 @@ const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 
 const bricks = [];
+<<<<<<< Updated upstream
 for (let c = 0; c < brickColumnCount; c++) {
   bricks[c] = [];
   for (let r = 0; r < brickRowCount; r++) {
     bricks[c][r] = { x: 0, y: 0, status: 1 };       //status determines whether brick is painted or not
+=======
+
+// Paused variable that checks if game is paused
+let paused = false;
+
+let amogus = new Image();
+amogus.src = "images/amogus.png";
+
+document.addEventListener("click", function (e) {
+  if(!gameActive) {
+    if (ctx.isPointInPath(pEasy, e.offsetX, e.offsetY)) {
+      setDifficulty(0);
+    }
+    if (ctx.isPointInPath(pMedium, e.offsetX, e.offsetY)) {
+      setDifficulty(1);
+    }
+    if (ctx.isPointInPath(pHard, e.offsetX, e.offsetY)) {
+      setDifficulty(2);
+    }
+>>>>>>> Stashed changes
   }
 }
 
@@ -160,6 +181,28 @@ function draw() {
     } else if (e.key === "Left" || e.key === "ArrowLeft") {
       leftPressed = true;
     }
+<<<<<<< Updated upstream
+=======
+
+  //calls draw every frame (frame rate depends on browser)
+  if (!paused) {
+    requestAnimationFrame(draw);
+  }
+}
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
+
+//check if keyboard button is pressed
+function keyDownHandler(e) {
+  if (e.key === "Right" || e.key === "ArrowRight") {
+    rightPressed = true;
+  } else if (e.key === "Left" || e.key === "ArrowLeft") {
+    leftPressed = true;
+  } else if (e.key === 27 || e.key === "Escape"){ // Escape key will pause the game
+    togglePause();
+>>>>>>> Stashed changes
   }
   
   //check if keyboard button is released
@@ -179,6 +222,7 @@ function draw() {
     }
   }
 
+<<<<<<< Updated upstream
   //collision detection function for colliding with bricks
   function collisionDetection() {
     for (let c = 0; c < brickColumnCount; c++) {
@@ -198,6 +242,34 @@ function draw() {
                 alert("YOU WIN, CONGRATULATIONS!");
                 document.location.reload();
             }
+=======
+// Function used to toggle pause button
+function togglePause(){
+  paused = !paused
+  if (paused == false) {
+    requestAnimationFrame(draw)
+  }
+}
+
+//collision detection function for colliding with bricks
+function collisionDetection() {
+  for (let c = 0; c < brickColumnCount; c++) {
+    for (let r = 0; r < brickRowCount; r++) {
+      const b = bricks[c][r];
+      if (b.status === 1) {
+        if (
+          x > b.x &&
+          x < b.x + brickWidth &&
+          y > b.y &&
+          y < b.y + brickHeight
+        ) {
+          dy = -dy;
+          b.status = 0;
+          score += scoreMult;
+          if (score === brickRowCount * brickColumnCount) {
+              alert("YOU WIN, CONGRATULATIONS!");
+              document.location.reload();
+>>>>>>> Stashed changes
           }
         }
       }
