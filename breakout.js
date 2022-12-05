@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 let x = canvas.width / 2;                           //ball x pos
 let y = canvas.height - 30;                         //ball y pos
 
-let speed = 5;                                      //ball speed
+let speed = 4.5;                                      //ball speed
 let dx = speed;
 let dy = -speed;
 
