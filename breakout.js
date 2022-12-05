@@ -122,6 +122,7 @@ function setDifficulty(diff) {
       bricks[c][r] = { x: 0, y: 0, status: 1 };       //status determines whether brick is painted or not
     }
   }
+  gameActive = true;
   draw();
 }
 
