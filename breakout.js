@@ -21,9 +21,9 @@ let rightPressed = leftPressed = false;             //Controls user input
 //Brick information
 const brickRowCount = 3;
 const brickColumnCount = 10;
-const brickWidth = 75;
+const brickWidth = 80;
 const brickHeight = 20;
-const brickPadding = 17;
+const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 
@@ -109,7 +109,7 @@ function draw() {
 
     //Bounce ball off the left and right (walls)
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-    dx = -dx;
+        dx = -dx;
     }
     if (y + dy < ballRadius) {
         dy = -dy;
