@@ -65,6 +65,9 @@ let lives = 3;
 let scoreMult = 1;
 const bricks = [];
 
+// Variable for pause function
+let paused = false;
+
 let amogus = new Image();
 amogus.src = "images/amogus.png";
 
@@ -231,7 +234,9 @@ function draw() {
     }
 
   //calls draw every frame (frame rate depends on browser)
-  requestAnimationFrame(draw);
+  if (!paused) {
+    requestAnimationFrame(draw);
+  }
 }
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -244,6 +249,8 @@ function keyDownHandler(e) {
     rightPressed = true;
   } else if (e.key === "Left" || e.key === "ArrowLeft") {
     leftPressed = true;
+  } else if (e.key === "27" || e.key === "Escape"){ // If escape is pressed, the game will pause
+    togglePause();
   }
 }
 
@@ -261,6 +268,14 @@ function mouseMoveHandler(e) {
   const relativeX = e.clientX - rect.left;
   if (relativeX > 0 && relativeX < canvas.width) {
     paddleX = relativeX - paddleWidth / 2;
+  }
+}
+
+// Function for pausing while in game
+function togglePause() {
+  paused = !paused;
+  if (paused == false){
+    requestAnimationFrame(draw);
   }
 }
 
